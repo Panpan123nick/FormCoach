@@ -1,0 +1,398 @@
+/* ---------- Setup directions ---------- */
+.setup-step {
+  text-align: center;
+}
+
+.setup-body {
+  max-width: 34ch;
+  margin: 0 auto 16px;
+  color: var(--muted);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-wrap: pretty;
+}
+
+/* Live "is the phone sideways?" line on the first step. */
+.setup-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 14px;
+  border: 2px dashed var(--ink);
+  border-radius: 99px;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.setup-status.done {
+  border-style: solid;
+  border-color: var(--red);
+  background: var(--accent-soft);
+}
+
+/* Illustration box shared by all three steps. */
+.illus {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: min(42vh, 260px);
+  margin: 0 auto 18px;
+}
+
+/* Step 1: the phone. */
+.illus-phone {
+  display: grid;
+  place-items: center;
+  width: 96px;
+  height: 170px;
+  padding: 10px 8px;
+  border: 4px solid var(--ink);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 5px 5px 0 var(--red);
+}
+
+.illus-phone-screen {
+  width: 56px;
+}
+
+.illus-phone.rotating {
+  animation: phone-turn 3.2s cubic-bezier(0.6, 0, 0.3, 1.3) infinite;
+}
+
+@keyframes phone-turn {
+  0%,
+  25% {
+    transform: rotate(0);
+  }
+  45%,
+  85% {
+    transform: rotate(-90deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.illus-arrow {
+  position: absolute;
+  top: 4%;
+  right: calc(50% - 130px);
+  width: 110px;
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Step 2: a camera viewfinder; the mascot shrinks into it as if stepping back. */
+.illus-frame {
+  position: relative;
+  width: 170px;
+  height: 230px;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 5px 5px 0 var(--red);
+}
+
+.illus-stepback {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  width: 120px;
+  transform-origin: 50% 100%;
+  animation: step-back 3.2s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+}
+
+@keyframes step-back {
+  0%,
+  15% {
+    transform: translateX(-50%) scale(2.1);
+  }
+  55%,
+  100% {
+    transform: translateX(-50%) scale(0.95);
+  }
+}
+
+/* The four red corner brackets of the viewfinder. */
+.illus-frame-corner {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 0 solid var(--red);
+}
+
+.illus-frame-corner.tl {
+  top: 8px;
+  left: 8px;
+  border-width: 4px 0 0 4px;
+}
+
+.illus-frame-corner.tr {
+  top: 8px;
+  right: 8px;
+  border-width: 4px 4px 0 0;
+}
+
+.illus-frame-corner.bl {
+  bottom: 8px;
+  left: 8px;
+  border-width: 0 0 4px 4px;
+}
+
+.illus-frame-corner.br {
+  right: 8px;
+  bottom: 8px;
+  border-width: 0 4px 4px 0;
+}
+
+/* Step 3: dashed rings pushing outward around the squatting mascot. */
+.illus-space {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 240px;
+  height: 240px;
+}
+
+.illus-space-figure {
+  width: 120px;
+}
+
+.illus-ring {
+  position: absolute;
+  inset: 0;
+  border: 3px dashed var(--red);
+  border-radius: 50%;
+  animation: ring-out 2.6s ease-out infinite;
+}
+
+.illus-ring.delayed {
+  animation-delay: 1.3s;
+}
+
+@keyframes ring-out {
+  from {
+    opacity: 1;
+    transform: scale(0.45);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* A sideways phone is short and wide, and that's exactly how people will hold it
+   after step 1. Put the picture on the left and the words on the right. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .setup-screen {
+    max-width: 760px;
+  }
+
+  .setup-screen .screen-header {
+    padding-bottom: 8px;
+  }
+
+  .setup-screen .header-row {
+    margin-bottom: 6px;
+  }
+
+  .setup-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-content: center;
+    column-gap: 28px;
+    text-align: left;
+  }
+
+  .setup-step .illus {
+    grid-row: span 3;
+    width: 200px;
+    height: 200px;
+    margin: 0;
+    scale: 0.8;
+  }
+
+  .setup-step h1 {
+    font-size: 2rem;
+  }
+
+  .setup-body {
+    margin: 0 0 12px;
+  }
+
+  .setup-status {
+    justify-self: start;
+  }
+
+  .setup-screen .screen-footer {
+    padding-top: 8px;
+  }
+}
+
+/* ---------- Camera check ---------- */
+.camera-screen {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #12100f;
+  color: var(--ink);
+}
+
+.camera-stage {
+  position: absolute;
+  inset: 0;
+}
+
+/* The video and the skeleton canvas sit exactly on top of each other.
+   "contain" shows the whole camera image, so what you see is what the AI sees.
+   Both are mirrored, so moving left moves left on screen, like a mirror. */
+.camera-video,
+.camera-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scaleX(-1);
+}
+
+.camera-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #f6ecdc;
+  font-weight: 700;
+}
+
+.camera-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgb(246 236 220 / 0.25);
+  border-top-color: #f6ecdc;
+  border-radius: 50%;
+  animation: turn 0.9s linear infinite;
+}
+
+@keyframes turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.camera-top {
+  position: absolute;
+  top: calc(12px + env(safe-area-inset-top));
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.camera-title {
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: rgb(18 16 15 / 0.6);
+  color: #f6ecdc;
+}
+
+/* The info card: along the bottom on an upright phone... */
+.camera-panel {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom));
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--red);
+}
+
+/* ...and on the right side when the phone is sideways, so it doesn't cover your feet. */
+@media (orientation: landscape) and (max-height: 600px) {
+  .camera-panel {
+    top: 64px;
+    left: auto;
+    width: 300px;
+    overflow-y: auto;
+  }
+}
+
+.camera-message {
+  margin: 0 0 10px;
+  font-family: var(--font-poster);
+  font-size: 1.7rem;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.camera-sub {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Body-part checklist: chips fill in red as each part is seen. */
+.body-parts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.body-parts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  opacity: 0.55;
+  transition:
+    background-color 0.2s,
+    opacity 0.2s;
+}
+
+.body-parts li.seen {
+  border-color: var(--red);
+  background: var(--red);
+  color: var(--paper);
+  opacity: 1;
+}
+
+.camera-ready {
+  text-align: center;
+}
+
+.stamp.small {
+  display: inline-block;
+  margin: 4px 0 12px;
+  font-size: 2rem;
+}
+
+.camera-privacy {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}

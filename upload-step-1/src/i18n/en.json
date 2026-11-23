@@ -1,0 +1,266 @@
+{
+  "app": {
+    "name": "Form Coach",
+    "privacy": "Your answers stay on this device. Nothing is uploaded.",
+    "disclaimer": "Form Coach gives general fitness guidance. It is not medical advice."
+  },
+  "boot": {
+    "loading": "Loading Form Coach"
+  },
+  "title": {
+    "kicker": "At-home form training",
+    "issue": "No. 01",
+    "reps": "Reps",
+    "points": {
+      "reps": "Counts your reps.",
+      "form": "Checks your form.",
+      "voice": "Talks you through it."
+    },
+    "privacy": "Your camera never leaves your device.",
+    "sticker": "Tap to start",
+    "stickerContinue": "Welcome back",
+    "go": "Go"
+  },
+  "common": {
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "yes": "Yes",
+    "no": "No",
+    "selectAll": "Select all that apply",
+    "stepOf": "Question {current} of {total}",
+    "comingSoon": "More workouts coming soon"
+  },
+  "survey": {
+    "safetyNotice": {
+      "title": "Check with a doctor first",
+      "body": "Please check with a doctor before starting. You can still explore the app.",
+      "continue": "Continue anyway"
+    },
+    "summary": {
+      "title": "Review your answers",
+      "subtitle": "Tap any answer to change it.",
+      "done": "Looks good",
+      "notAnswered": "Not answered",
+      "safetyClear": "No concerns",
+      "safetyFlagged": "Check with a doctor first"
+    }
+  },
+  "questions": {
+    "ageRange": {
+      "title": "How old are you?",
+      "summaryLabel": "Age",
+      "options": {
+        "under13": "Under 13",
+        "13to17": "13–17",
+        "18to39": "18–39",
+        "40to59": "40–59",
+        "60plus": "60+"
+      }
+    },
+    "safety": {
+      "title": "Quick safety check",
+      "hint": "Answer Yes or No for each one.",
+      "summaryLabel": "Safety check",
+      "items": {
+        "heartCondition": "Has a doctor said you have a heart condition or should only do doctor-recommended exercise?",
+        "chestPain": "Do you get chest pain, dizziness, or fainting when active?",
+        "boneJoint": "Do you have a bone, joint, or muscle problem that exercise could make worse?",
+        "pregnantOrRecovering": "Are you pregnant or recovering from surgery or an injury?"
+      }
+    },
+    "easyAreas": {
+      "title": "Any areas we should go easy on?",
+      "summaryLabel": "Go easy on",
+      "options": {
+        "knees": "Knees",
+        "back": "Back",
+        "shoulders": "Shoulders",
+        "wrists": "Wrists",
+        "neck": "Neck",
+        "none": "None"
+      }
+    },
+    "experience": {
+      "title": "How much exercise experience do you have?",
+      "summaryLabel": "Experience",
+      "options": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      }
+    },
+    "activityDays": {
+      "title": "How many days a week are you active right now?",
+      "summaryLabel": "Active days",
+      "options": {
+        "0": "0 days",
+        "1to2": "1–2 days",
+        "3to4": "3–4 days",
+        "5plus": "5+ days"
+      }
+    },
+    "goals": {
+      "title": "What are your goals?",
+      "summaryLabel": "Goals",
+      "options": {
+        "stronger": "Get stronger",
+        "loseWeight": "Lose weight",
+        "endurance": "Build endurance",
+        "flexibility": "Improve flexibility",
+        "healthy": "Stay healthy",
+        "sports": "Sports performance"
+      }
+    },
+    "exercises": {
+      "title": "Which exercises do you want to do?",
+      "summaryLabel": "Exercises",
+      "options": {
+        "pushups": "Push-ups",
+        "situps": "Sit-ups",
+        "squats": "Squats",
+        "plank": "Plank"
+      }
+    },
+    "equipment": {
+      "title": "What equipment do you have?",
+      "hint": "Today's exercises need no equipment. This helps us plan future workouts.",
+      "summaryLabel": "Equipment",
+      "options": {
+        "none": "None",
+        "dumbbells": "Dumbbells / weights",
+        "pullupBar": "Pull-up bar",
+        "bands": "Resistance bands",
+        "yogaMat": "Yoga mat",
+        "other": "Other"
+      }
+    },
+    "workoutLength": {
+      "title": "How long do you want each workout to be?",
+      "summaryLabel": "Workout length",
+      "options": {
+        "5to10": "5–10 minutes",
+        "15to20": "15–20 minutes",
+        "30plus": "30+ minutes"
+      }
+    }
+  },
+  "home": {
+    "title": "You're all set!",
+    "body": "Your plan is ready. Prop up your phone, turn side-on to the camera, and let's go.",
+    "guardian": "Since you're under 13, have a parent or guardian nearby when you work out.",
+    "review": "Review my answers",
+    "stamp": "Ready",
+    "setup": "Set up camera",
+    "start": "Start workout"
+  },
+  "setup": {
+    "kicker": "Setup {current} of {total}",
+    "steps": {
+      "rotate": {
+        "title": "Turn your phone sideways",
+        "body": "Stand it on its side, about waist height, against something steady so it won't tip over.",
+        "statusPortrait": "Waiting for you to turn your phone…",
+        "statusLandscape": "Nice, your phone is sideways.",
+        "statusLaptop": "On a laptop? Skip this one: just make sure the camera faces you."
+      },
+      "stepBack": {
+        "title": "Step back so your whole body is in view",
+        "body": "Stand about 2–3 meters (6–10 feet) away. Your head and your feet both need to be on screen."
+      },
+      "space": {
+        "title": "Clear some space",
+        "body": "Move anything you could trip over or bump into. Leave about an arm's length of room on every side."
+      }
+    },
+    "startCheck": "Start camera check"
+  },
+  "camera": {
+    "title": "Camera check",
+    "starting": "Starting your camera…",
+    "loading": "Loading body tracking…",
+    "privacy": "Video stays on this device. Nothing is recorded or uploaded.",
+    "status": {
+      "noPerson": "Step into view",
+      "stepBack": "Step back so we can see your feet",
+      "showHead": "Make sure your head is in view",
+      "showBody": "Face the camera so we can see your body",
+      "comeCloser": "Come a little closer",
+      "ok": "Perfect, hold still…"
+    },
+    "parts": {
+      "head": "Head",
+      "shoulders": "Shoulders",
+      "hips": "Hips",
+      "knees": "Knees",
+      "feet": "Feet"
+    },
+    "stamp": "In frame",
+    "readyTitle": "We can see all of you!",
+    "readyBody": "Camera setup is done. You're ready to work out.",
+    "retry": "Try again",
+    "errors": {
+      "denied": "Camera access was blocked. Allow the camera for this site in your browser settings, then try again.",
+      "noCamera": "We couldn't find a camera on this device.",
+      "insecure": "The camera only works on a secure page. On a phone, open the https:// address from \"npm run dev:phone\".",
+      "model": "Body tracking couldn't start. Reload the page and try again."
+    },
+    "startWorkout": "Start workout"
+  },
+  "workout": {
+    "planTitle": "Today's workout",
+    "planSub": "Made from your answers. Every rep is checked for good form.",
+    "sets": "{sets} × {target} reps",
+    "setsHold": "{sets} × {target} sec",
+    "rest": "{seconds} sec rest between sets",
+    "sideOn": "Stand or lie side-on to the camera for every exercise, so it can see your joints bend.",
+    "start": "Start",
+    "setLabel": "Set {set} of {sets}",
+    "getReady": "Get ready",
+    "position": {
+      "pushups": "Get into a push-up position, side-on to the camera.",
+      "situps": "Lie on your back with your knees bent, side-on to the camera.",
+      "squats": "Stand side-on to the camera, feet shoulder-width apart.",
+      "plank": "Get into a forearm plank, side-on to the camera."
+    },
+    "missed": "Didn't count: {count}",
+    "goodForm": "Good-form time",
+    "restTitle": "Rest",
+    "upNext": "Up next: {exercise}",
+    "skipRest": "Skip rest",
+    "stop": "Stop / I feel pain",
+    "cues": {
+      "goodRep": "Nice rep!",
+      "goLower": "Go lower",
+      "comeUpHigher": "Come up higher",
+      "backStraight": "Keep your back straight",
+      "chestUp": "Keep your chest up",
+      "kneesBent": "Keep your knees bent",
+      "hipsSag": "Lift your hips",
+      "hipsHigh": "Lower your hips",
+      "stayInView": "Stay where the camera can see you",
+      "getInPosition": "Get into position"
+    },
+    "say": {
+      "getReady": "Get ready for {exercise}",
+      "go": "Go!",
+      "setDone": "Set complete. Great work.",
+      "rest": "Rest",
+      "allDone": "Workout complete. Amazing job!"
+    },
+    "stopped": {
+      "title": "Workout stopped",
+      "body": "Good call. Stop and rest now.",
+      "emergency": "If you have chest pain, trouble breathing, feel faint or dizzy, or pain that doesn't go away, get help right away: call your local emergency number (911 in the US) or tell an adult nearby.",
+      "doctor": "If something hurt, check with a doctor before your next workout."
+    },
+    "done": {
+      "stamp": "Done",
+      "title": "Workout complete!",
+      "reps": "{reps} good reps",
+      "missed": "{count} didn't count",
+      "held": "{seconds} sec held"
+    },
+    "home": "Back to home"
+  }
+}
