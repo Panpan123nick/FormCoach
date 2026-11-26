@@ -444,3 +444,108 @@
     height: 104px;
   }
 }
+
+/* ---------- Laptops and wide screens: the poster fills the whole screen ----------
+   Instead of a phone-shaped strip in the middle, the poster becomes a landscape
+   spread: title and selling points on the left, the mascot and rep counter on
+   the right, and the tape running across the full width at the bottom.
+   `display: contents` lets the title and stage (inside .poster-hero) sit
+   directly in the poster's grid. */
+@media (min-width: 900px) and (orientation: landscape) {
+  .poster {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      'top    top'
+      'title  stage'
+      'bottom stage'
+      'tape   tape';
+    column-gap: 4vw;
+    max-width: none;
+    height: 100dvh;
+    padding: 28px 5vw 0;
+    box-shadow: none;
+  }
+
+  .poster-top {
+    grid-area: top;
+    font-size: 0.85rem;
+  }
+
+  .poster-hero {
+    display: contents;
+  }
+
+  .poster-title {
+    grid-area: title;
+    align-self: end;
+    margin-top: 3vh;
+    font-size: min(14vw, 25vh);
+  }
+
+  .poster-stage {
+    grid-area: stage;
+    align-items: center;
+    justify-content: center;
+    gap: 3vw;
+    min-height: 0;
+    margin-top: 0;
+  }
+
+  .poster-figure {
+    width: min(70%, 52vh);
+  }
+
+  .rep-number {
+    font-size: min(10vw, 18vh);
+  }
+
+  .rep-label {
+    font-size: 0.85rem;
+  }
+
+  .poster-bottom {
+    grid-area: bottom;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4vw;
+    margin-top: 3vh;
+  }
+
+  .poster-points {
+    font-size: 1.3rem;
+  }
+
+  .poster-privacy {
+    font-size: 0.9rem;
+  }
+
+  .sticker {
+    width: 150px;
+    height: 150px;
+  }
+
+  .sticker-go {
+    font-size: 2.8rem;
+  }
+
+  /* A gentler angle, since the tape is now much longer. */
+  .tape {
+    grid-area: tape;
+    align-self: end;
+    margin: 0 -6vw 4vh;
+    padding: 12px 0 8px;
+    transform: rotate(-1.5deg);
+  }
+
+  @keyframes tape-in {
+    from {
+      transform: rotate(-1.5deg) translateX(-110%);
+    }
+  }
+
+  .tape-track span {
+    font-size: 2.4rem;
+  }
+}
