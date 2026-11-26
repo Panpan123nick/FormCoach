@@ -34,9 +34,11 @@ self.addEventListener('fetch', (event) => {
 
   if (request.mode === 'navigate') {
     // The page itself: try the internet first so updates show up right away;
-    // if that fails (offline), use the saved copy.
+    // if that fails (offline), use the saved copy. `no-cache` makes the browser
+    // check with GitHub instead of reusing its own copy (GitHub lets browsers keep
+    // pages for 10 minutes, which made fresh uploads look like they hadn't worked).
     event.respondWith(
-      fetch(request)
+      fetch(request, { cache: 'no-cache' })
         .then((response) => save(request, response))
         .catch(() => caches.match(request).then((hit) => hit ?? caches.match('./'))),
     );
