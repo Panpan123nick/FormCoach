@@ -7,7 +7,7 @@ import { toggleMulti } from './surveyLogic.js';
 // `onAnswer(newAnswer)` saves a change. For multi and yes/no questions we pass
 // a function (latest => newAnswer) instead, so fast taps build on each other
 // rather than on an answer that's already out of date.
-export default function QuestionScreen({ question, answer, onAnswer }) {
+export default function QuestionScreen({ question, answer, onAnswer, showKeys = false }) {
   const { t } = useTranslation();
   const base = `questions.${question.id}`;
   const titleId = `q-${question.id}-title`;
@@ -33,6 +33,11 @@ export default function QuestionScreen({ question, answer, onAnswer }) {
           {text}
         </p>
       ))}
+      {showKeys && (
+        <p className="kbd-hint" aria-hidden="true">
+          {t(`survey.keys.${question.type}`, { count: question.options?.length })}
+        </p>
+      )}
 
       {question.type === 'single' && (
         <div className="options" role="radiogroup" aria-labelledby={titleId}>

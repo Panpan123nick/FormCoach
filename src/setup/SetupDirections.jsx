@@ -4,14 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import Paper from '../components/Paper.jsx';
 import ProgressBar from '../components/ProgressBar.jsx';
 import { useTranslation } from '../i18n/I18nProvider.jsx';
-import { ClearSpace, RotatePhone, StepBack } from './SetupIllustrations.jsx';
+import { ClearSpace, PlaceLaptop, RotatePhone, StepBack } from './SetupIllustrations.jsx';
 import { useMediaQuery } from './useMediaQuery.js';
 
-const STEPS = [
+// The first step depends on the device: phones get turned sideways, laptops
+// get placed and tilted. The other two steps are the same for everyone.
+const PHONE_STEPS = [
   { id: 'rotate', Illustration: RotatePhone },
   { id: 'stepBack', Illustration: StepBack },
   { id: 'space', Illustration: ClearSpace },
 ];
+const LAPTOP_STEPS = [{ id: 'placeLaptop', Illustration: PlaceLaptop }, ...PHONE_STEPS.slice(1)];
 
 // Three animated "how to set up" cards, shown one at a time, before the camera check.
 export default function SetupDirections() {
@@ -24,8 +27,9 @@ export default function SetupDirections() {
   const isTouch = useMediaQuery('(pointer: coarse)');
   const isLandscape = useMediaQuery('(orientation: landscape)');
 
-  const step = STEPS[index];
-  const isLast = index === STEPS.length - 1;
+  const steps = isTouch ? PHONE_STEPS : LAPTOP_STEPS;
+  const step = steps[index];
+  const isLast = index === steps.length - 1;
   const base = `setup.steps.${step.id}`;
 
   function goBack() {
@@ -49,12 +53,11 @@ export default function SetupDirections() {
   // On the "turn sideways" step we can actually tell whether the phone is sideways.
   let rotateStatus = null;
   if (step.id === 'rotate') {
-    if (!isTouch) rotateStatus = { done: false, text: t(`${base}.statusLaptop`) };
-    else if (isLandscape) rotateStatus = { done: true, text: t(`${base}.statusLandscape`) };
+    if (isLandscape) rotateStatus = { done: true, text: t(`${base}.statusLandscape`) };
     else rotateStatus = { done: false, text: t(`${base}.statusPortrait`) };
   }
 
-  const stepText = t('setup.kicker', { current: index + 1, total: STEPS.length });
+  const stepText = t('setup.kicker', { current: index + 1, total: steps.length });
 
   return (
     <>
@@ -68,7 +71,7 @@ export default function SetupDirections() {
             </button>
             <span className="step-count kicker">{stepText}</span>
           </div>
-          <ProgressBar current={index + 1} total={STEPS.length} label={stepText} />
+          <ProgressBar current={index + 1} total={steps.length} label={stepText} />
         </header>
 
         <main className={`screen-body setup-step slide-${direction}`} key={step.id}>

@@ -11,6 +11,14 @@ import './styles/poster.css';
 import './styles/setup.css';
 import './styles/workout.css';
 
+// Offline support (see public/sw.js). Only in the published site: during
+// development it would keep serving old copies of files you're editing.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {
+    // If it can't register, the app still works; it just needs the internet.
+  });
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import en from '../i18n/en.json';
 import { QUESTIONS } from './questions.js';
-import { firstUnansweredIndex, isAnswered, needsDoctorCheck, toggleMulti } from './surveyLogic.js';
+import { firstUnansweredIndex, isAnswered, needsDoctorCheck, sanitizeAnswers, toggleMulti } from './surveyLogic.js';
 
 const byId = (id) => QUESTIONS.find((q) => q.id === id);
 
@@ -34,9 +34,9 @@ describe('isAnswered', () => {
   });
 
   it('multi: needs at least one choice', () => {
-    const q = byId('exercises');
+    const q = byId('goals');
     expect(isAnswered(q, [])).toBe(false);
-    expect(isAnswered(q, ['plank'])).toBe(true);
+    expect(isAnswered(q, ['stronger'])).toBe(true);
   });
 
   it('yesno: needs every item answered', () => {
@@ -84,5 +84,16 @@ describe('translations', () => {
     for (const item of q.items ?? []) {
       expect(get(`${base}.items.${item}`)).toBeTypeOf('string');
     }
+  });
+});
+
+describe('sanitizeAnswers', () => {
+  it('drops options that no longer exist and keeps the rest', () => {
+    const clean = sanitizeAnswers(QUESTIONS, { goals: ['loseWeight', 'stronger'], ageRange: '18to39' });
+    expect(clean).toEqual({ goals: ['stronger'], ageRange: '18to39' });
+  });
+
+  it('makes a question unanswered if nothing valid is left', () => {
+    expect(sanitizeAnswers(QUESTIONS, { goals: ['loseWeight'] })).toEqual({});
   });
 });

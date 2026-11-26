@@ -49,7 +49,11 @@ const SIDES = {
 export function nearSide(landmarks) {
   const confidence = (side) =>
     Object.values(SIDES[side]).reduce((sum, i) => sum + (landmarks[i]?.visibility ?? 0), 0);
-  const side = confidence('left') >= confidence('right') ? 'left' : 'right';
+  return bodySide(landmarks, confidence('left') >= confidence('right') ? 'left' : 'right');
+}
+
+/** The points for one named side ('left' or 'right'), for exercises that watch both legs. */
+export function bodySide(landmarks, side) {
   return Object.fromEntries(Object.entries(SIDES[side]).map(([name, i]) => [name, landmarks[i]]));
 }
 

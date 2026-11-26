@@ -768,3 +768,62 @@ button {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Keyboard shortcut hint, shown only on laptops and desktops. */
+.kbd-hint {
+  margin: -8px 0 18px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* ---------- Laptops and desktops ---------- */
+
+/* With a mouse, things react when you point at them (phones skip this: no hover). */
+@media (hover: hover) and (pointer: fine) {
+  .option:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+
+  .option.selected:hover {
+    box-shadow: 4px 4px 0 var(--red);
+  }
+
+  .primary:hover:not(:disabled),
+  .secondary:hover,
+  .back-button:hover {
+    transform: translate(-1px, -1px);
+  }
+
+  .primary:hover:not(:disabled) {
+    box-shadow: 5px 5px 0 var(--red);
+  }
+
+  .secondary:hover {
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+}
+
+/* Wide screens: a roomier column, and answers side by side in two columns
+   so the whole question fits without scrolling. */
+@media (min-width: 900px) {
+  .screen {
+    max-width: 760px;
+    padding-top: 28px;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .yesno-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

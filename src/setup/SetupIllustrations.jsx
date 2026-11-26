@@ -20,6 +20,30 @@ export function RotatePhone() {
   );
 }
 
+// A laptop seen from the side: its screen tilts back so the camera (red dot)
+// can see the floor, shown by the dashed "view" lines.
+export function PlaceLaptop() {
+  return (
+    <div className="illus">
+      <svg className="illus-laptop" viewBox="0 0 240 180" aria-hidden="true">
+        <line className="illus-table" x1="70" y1="151" x2="236" y2="151" />
+        <line className="illus-table" x1="90" y1="151" x2="90" y2="178" />
+        <line className="illus-table" x1="216" y1="151" x2="216" y2="178" />
+        <rect className="illus-laptop-base" x="104" y="140" width="96" height="10" rx="3" />
+        <g className="illus-laptop-lid">
+          <line className="illus-view" x1="104" y1="52" x2="2" y2="176" />
+          <line className="illus-view" x1="104" y1="52" x2="2" y2="40" />
+          <rect className="illus-laptop-screen" x="104" y="44" width="9" height="100" rx="3" />
+          <circle className="illus-camera" cx="104" cy="54" r="5" />
+        </g>
+      </svg>
+      <div className="illus-laptop-person">
+        <PoseFigure />
+      </div>
+    </div>
+  );
+}
+
 // The view through the phone: the mascot starts too close (cut off), then
 // "steps back" until its whole body fits in the frame.
 export function StepBack() {

@@ -48,8 +48,9 @@ To redraw the app icons: `node scripts/make-icons.mjs`
 | `src/intro/` | Boot animation and title screen. |
 | `src/setup/` | Setup directions and the live camera check. |
 | `src/pose/` | Pose model loading, landmark names, full-body check, skeleton drawing. |
+| `src/exercises/catalog.js` | **Every exercise** and who it suits (ages, levels, goals, areas to avoid, equipment). |
 | `src/exercises/exercises.js` | **All form thresholds** (angles, plank limits). Tune these after real testing. |
-| `src/workout/` | Plan generator, live workout session, stopped and done screens. |
+| `src/workout/` | Plan generator (picks exercises from the catalog), live workout session, stopped and done screens. |
 | `src/voice/` | Spoken cues and the "don't nag" timing rules. |
 | `public/models/` | The pose model, served by the app itself (no outside downloads at runtime). |
 | `src/components/PoseFigure.jsx` | The animated skeleton mascot. |

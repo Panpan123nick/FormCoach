@@ -7,13 +7,19 @@ import TitleScreen from './intro/TitleScreen.jsx';
 import { loadData, saveData } from './storage/storage.js';
 import CameraCheck from './setup/CameraCheck.jsx';
 import SetupDirections from './setup/SetupDirections.jsx';
+import { QUESTIONS } from './survey/questions.js';
 import Survey from './survey/Survey.jsx';
+import { sanitizeAnswers } from './survey/surveyLogic.js';
 import WorkoutPage from './workout/WorkoutPage.jsx';
 
 export default function App() {
   // All app data lives here and is copied to localStorage whenever it changes.
-  // Passing the function (not loadData()) means it only runs on the first render.
-  const [data, setData] = useState(loadData);
+  // Passing a function means it only runs on the first render. Old saved answers
+  // are cleaned up in case the survey changed since they were saved.
+  const [data, setData] = useState(() => {
+    const saved = loadData();
+    return { ...saved, survey: { ...saved.survey, answers: sanitizeAnswers(QUESTIONS, saved.survey.answers) } };
+  });
 
   // The boot animation covers the screen at launch. Once it starts fading
   // (`booted`), the real screens render underneath; once it's gone, we remove it.

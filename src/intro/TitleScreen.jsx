@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PoseFigure from '../components/PoseFigure.jsx';
 import { useTranslation } from '../i18n/I18nProvider.jsx';
-import { QUESTIONS } from '../survey/questions.js';
+import { CATALOG } from '../exercises/catalog.js';
 
 // How long the ink-wipe transition plays before switching screens.
 const WIPE_MS = 800;
 
-// The exercises we support, for the scrolling tape. Taken from the survey so
-// the two lists can never disagree.
-const EXERCISES = QUESTIONS.find((q) => q.id === 'exercises').options;
+// The exercises the app can coach, for the scrolling tape. Taken from the
+// exercise catalog so the two lists can never disagree.
+const TAPE_EXERCISES = CATALOG.filter((e) => e.tape !== false).map((e) => e.id);
 
 // The title screen, designed like a two-color printed gym poster.
 // The mascot squats and a counter ticks up with each rep, which shows
@@ -38,13 +38,26 @@ export default function TitleScreen({ surveyDone }) {
     timer.current = setTimeout(() => navigate(destination), WIPE_MS);
   }
 
+  // On a laptop, Enter or Space starts too. (If the sticker button has focus,
+  // the browser already turns Enter/Space into a click, so skip it here.)
+  useEffect(() => {
+    function onKey(event) {
+      if ((event.key === 'Enter' || event.key === ' ') && !document.activeElement?.matches('button')) {
+        event.preventDefault();
+        start();
+      }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
   const nameLines = t('app.name').split(' ');
   const stickerText = surveyDone ? t('title.stickerContinue') : t('title.sticker');
   // Text that runs around the sticker's edge, repeated to fill the circle.
   const ringText = `${stickerText} • ${stickerText} • `.toUpperCase();
   // The tape text is written twice in a row; sliding it left by exactly one
   // copy and starting over makes the loop look endless.
-  const tapeText = `${EXERCISES.map((e) => t(`questions.exercises.options.${e}`)).join('  /  ')}  /  `;
+  const tapeText = `${TAPE_EXERCISES.map((e) => t(`exercises.names.${e}`)).join('  /  ')}  /  `;
 
   return (
     <div className={`title-screen${starting ? ' starting' : ''}`} onClick={start}>

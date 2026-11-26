@@ -44,6 +44,11 @@
       "notAnswered": "Not answered",
       "safetyClear": "No concerns",
       "safetyFlagged": "Check with a doctor first"
+    },
+    "keys": {
+      "single": "Keyboard: press 1–{count} to choose · Backspace to go back",
+      "multi": "Keyboard: press 1–{count} to choose · Enter to continue · Backspace to go back",
+      "yesno": "Keyboard: press Y or N for each question · Enter to continue"
     }
   },
   "questions": {
@@ -105,26 +110,16 @@
       "summaryLabel": "Goals",
       "options": {
         "stronger": "Get stronger",
-        "loseWeight": "Lose weight",
+        "moreActive": "Get more active",
         "endurance": "Build endurance",
         "flexibility": "Improve flexibility",
         "healthy": "Stay healthy",
         "sports": "Sports performance"
       }
     },
-    "exercises": {
-      "title": "Which exercises do you want to do?",
-      "summaryLabel": "Exercises",
-      "options": {
-        "pushups": "Push-ups",
-        "situps": "Sit-ups",
-        "squats": "Squats",
-        "plank": "Plank"
-      }
-    },
     "equipment": {
       "title": "What equipment do you have?",
-      "hint": "Today's exercises need no equipment. This helps us plan future workouts.",
+      "hint": "A pull-up bar unlocks pull-ups. Workouts for other equipment are coming soon.",
       "summaryLabel": "Equipment",
       "options": {
         "none": "None",
@@ -147,7 +142,7 @@
   },
   "home": {
     "title": "You're all set!",
-    "body": "Your plan is ready. Prop up your phone, turn side-on to the camera, and let's go.",
+    "body": "Your plan is ready. Set up your phone or laptop, turn side-on to the camera, and let's go.",
     "guardian": "Since you're under 13, have a parent or guardian nearby when you work out.",
     "review": "Review my answers",
     "stamp": "Ready",
@@ -161,8 +156,7 @@
         "title": "Turn your phone sideways",
         "body": "Stand it on its side, about waist height, against something steady so it won't tip over.",
         "statusPortrait": "Waiting for you to turn your phone…",
-        "statusLandscape": "Nice, your phone is sideways.",
-        "statusLaptop": "On a laptop? Skip this one: just make sure the camera faces you."
+        "statusLandscape": "Nice, your phone is sideways."
       },
       "stepBack": {
         "title": "Step back so your whole body is in view",
@@ -171,6 +165,10 @@
       "space": {
         "title": "Clear some space",
         "body": "Move anything you could trip over or bump into. Leave about an arm's length of room on every side."
+      },
+      "placeLaptop": {
+        "title": "Set up your laptop",
+        "body": "Put it on a table, chair or shelf at about waist height. Tilt the screen back so the camera can see the floor where you'll stand."
       }
     },
     "startCheck": "Start camera check"
@@ -209,19 +207,27 @@
   },
   "workout": {
     "planTitle": "Today's workout",
-    "planSub": "Made from your answers. Every rep is checked for good form.",
+    "planSub": "Picked for your age, level and goals. Every counted rep is checked for good form.",
     "sets": "{sets} × {target} reps",
     "setsHold": "{sets} × {target} sec",
     "rest": "{seconds} sec rest between sets",
-    "sideOn": "Stand or lie side-on to the camera for every exercise, so it can see your joints bend.",
+    "sideOn": "Most exercises are tracked side-on to the camera, so it can see your joints bend. The get-ready screen tells you how to stand.",
     "start": "Start",
     "setLabel": "Set {set} of {sets}",
     "getReady": "Get ready",
     "position": {
+      "shoulderRolls": "Stand facing the camera with your arms relaxed.",
+      "catStretch": "Get on your hands and knees, side-on to the camera.",
       "pushups": "Get into a push-up position, side-on to the camera.",
-      "situps": "Lie on your back with your knees bent, side-on to the camera.",
+      "kneePushups": "Get into a push-up position on your knees, side-on to the camera.",
+      "wallPushups": "Stand an arm's length from a wall, hands on the wall, side-on to the camera.",
       "squats": "Stand side-on to the camera, feet shoulder-width apart.",
-      "plank": "Get into a forearm plank, side-on to the camera."
+      "gluteBridges": "Lie on your back, knees bent, feet flat, side-on to the camera.",
+      "legRaises": "Lie on your side facing the camera, legs straight. Switch sides halfway.",
+      "situps": "Lie on your back with your knees bent, side-on to the camera.",
+      "lunges": "Stand side-on to the camera. Step forward with one leg, then switch.",
+      "plank": "Get into a forearm plank, side-on to the camera.",
+      "pullUps": "Hang from the bar with straight arms, facing or side-on to the camera."
     },
     "missed": "Didn't count: {count}",
     "goodForm": "Good-form time",
@@ -239,7 +245,14 @@
       "hipsSag": "Lift your hips",
       "hipsHigh": "Lower your hips",
       "stayInView": "Stay where the camera can see you",
-      "getInPosition": "Get into position"
+      "getInPosition": "Get into position",
+      "hipsHigher": "Push your hips higher",
+      "liftHigher": "Lift your leg higher",
+      "pullHigher": "Pull your chin up to the bar",
+      "rollForward": "Roll your shoulders forward, slow and big",
+      "rollBackward": "Now roll them backward",
+      "catUp": "Round your back up to the ceiling",
+      "catDown": "Now let your back sink down slowly"
     },
     "say": {
       "getReady": "Get ready for {exercise}",
@@ -259,8 +272,30 @@
       "title": "Workout complete!",
       "reps": "{reps} good reps",
       "missed": "{count} didn't count",
-      "held": "{seconds} sec held"
+      "held": "{seconds} sec held",
+      "followed": "{seconds} sec"
     },
-    "home": "Back to home"
+    "home": "Back to home",
+    "setsGuided": "{target} sec follow-along",
+    "goodFor": "Good for: {goals}",
+    "warmup": "Warm-up",
+    "cooldown": "Cool-down",
+    "followAlong": "Follow along"
+  },
+  "exercises": {
+    "names": {
+      "shoulderRolls": "Shoulder rolls",
+      "catStretch": "Cat stretch",
+      "pushups": "Push-ups",
+      "kneePushups": "Knee push-ups",
+      "wallPushups": "Wall push-ups",
+      "squats": "Squats",
+      "gluteBridges": "Glute bridges",
+      "legRaises": "Side leg raises",
+      "situps": "Sit-ups",
+      "lunges": "Lunges",
+      "plank": "Plank",
+      "pullUps": "Pull-ups"
+    }
   }
 }

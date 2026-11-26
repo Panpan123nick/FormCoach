@@ -45,12 +45,7 @@ export const QUESTIONS = [
   {
     id: 'goals',
     type: 'multi',
-    options: ['stronger', 'loseWeight', 'endurance', 'flexibility', 'healthy', 'sports'],
-  },
-  {
-    id: 'exercises',
-    type: 'multi',
-    options: ['pushups', 'situps', 'squats', 'plank'],
+    options: ['stronger', 'moreActive', 'endurance', 'flexibility', 'healthy', 'sports'],
   },
   {
     id: 'equipment',
@@ -58,7 +53,8 @@ export const QUESTIONS = [
     options: ['none', 'dumbbells', 'pullupBar', 'bands', 'yogaMat', 'other'],
     exclusive: 'none',
     hint: true,
-    comingSoon: ['other'],
+    // Only the pull-up bar is used so far (for pull-ups).
+    comingSoon: ['dumbbells', 'bands', 'other'],
   },
   {
     id: 'workoutLength',

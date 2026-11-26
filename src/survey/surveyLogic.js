@@ -38,3 +38,23 @@ export function needsDoctorCheck(answers) {
 export function firstUnansweredIndex(questions, answers) {
   return questions.findIndex((q) => !isAnswered(q, answers?.[q.id]));
 }
+
+/**
+ * Drop saved answers that no longer match the questions, e.g. a goal option
+ * that was removed in an update. A question left with nothing valid becomes
+ * unanswered, so the survey asks it again.
+ */
+export function sanitizeAnswers(questions, answers = {}) {
+  const clean = { ...answers };
+  for (const q of questions) {
+    const answer = clean[q.id];
+    if (answer === undefined || q.type === 'yesno') continue;
+    if (q.type === 'single' && !q.options.includes(answer)) delete clean[q.id];
+    if (q.type === 'multi') {
+      const kept = Array.isArray(answer) ? answer.filter((o) => q.options.includes(o)) : [];
+      if (kept.length) clean[q.id] = kept;
+      else delete clean[q.id];
+    }
+  }
+  return clean;
+}

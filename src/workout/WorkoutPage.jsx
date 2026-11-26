@@ -8,6 +8,9 @@ import { unlockSpeech } from '../voice/speech.js';
 import { generatePlan, isLenient } from './planGenerator.js';
 import WorkoutSession from './WorkoutSession.jsx';
 
+// How the amount is written for each kind of exercise, e.g. "2 × 12 reps".
+const AMOUNT_TEXT = { reps: 'workout.sets', hold: 'workout.setsHold', guided: 'workout.setsGuided' };
+
 // The workout route: shows today's plan, runs the session, then shows either
 // the results or (if STOP was pressed) the safety message.
 export default function WorkoutPage({ survey, settings }) {
@@ -76,17 +79,27 @@ export default function WorkoutPage({ survey, settings }) {
                   </span>
                   <span className="summary-text">
                     <span className="summary-value">
-                      {t(`questions.exercises.options.${item.exercise}`)}
+                      {t(`exercises.names.${item.exercise}`)}
+                      {item.role !== 'main' && <span className="tag">{t(`workout.${item.role}`)}</span>}
                     </span>
                     <span className="summary-label kicker">
-                      {t(item.kind === 'hold' ? 'workout.setsHold' : 'workout.sets', item)}
+                      {t(AMOUNT_TEXT[item.kind], item)}
                     </span>
+                    {item.role === 'main' && item.goals.length > 0 && (
+                      <span className="plan-why">
+                        {t('workout.goodFor', {
+                          goals: item.goals.map((g) => t(`questions.goals.options.${g}`)).join(', '),
+                        })}
+                      </span>
+                    )}
                   </span>
                 </div>
               </li>
             ))}
           </ul>
-          <p className="fine-print">{t('workout.rest', { seconds: plan[0]?.restSeconds })}</p>
+          <p className="fine-print">
+            {t('workout.rest', { seconds: plan.find((p) => p.role === 'main')?.restSeconds })}
+          </p>
           <p className="callout">{t('workout.sideOn')}</p>
         </main>
         <footer className="screen-footer">
@@ -155,10 +168,12 @@ function DoneScreen({ plan, results }) {
                     </span>
                     <span className="summary-text">
                       <span className="summary-value">
-                        {t(`questions.exercises.options.${item.exercise}`)}
+                        {t(`exercises.names.${item.exercise}`)}
                       </span>
                       <span className="summary-label kicker">
-                        {item.kind === 'hold'
+                        {item.kind === 'guided'
+                          ? t('workout.done.followed', { seconds: r.seconds })
+                          : item.kind === 'hold'
                           ? t('workout.done.held', { seconds: r.seconds })
                           : `${t('workout.done.reps', { reps: r.reps })}${
                               r.missed ? ` · ${t('workout.done.missed', { count: r.missed })}` : ''

@@ -396,3 +396,76 @@
   font-size: 0.78rem;
   font-weight: 700;
 }
+
+/* ---------- Laptop placement illustration ---------- */
+.illus-laptop {
+  width: 240px;
+  overflow: visible;
+}
+
+.illus-table {
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.illus-laptop-base,
+.illus-laptop-screen {
+  fill: var(--ink);
+}
+
+.illus-camera {
+  fill: var(--red);
+}
+
+/* The camera's view: two dashed lines spreading out toward the floor. */
+.illus-view {
+  stroke: var(--red);
+  stroke-width: 2.5;
+  stroke-dasharray: 6 6;
+  animation: view-dash 1s linear infinite;
+}
+
+@keyframes view-dash {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+/* The screen tilts back on its hinge (bottom of the screen) and the view tilts with it. */
+.illus-laptop-lid {
+  transform-box: view-box;
+  transform-origin: 108px 144px;
+  animation: lid-tilt 3.2s cubic-bezier(0.5, 0, 0.3, 1.2) infinite;
+}
+
+@keyframes lid-tilt {
+  0%,
+  20% {
+    transform: rotate(0deg);
+  }
+  50%,
+  90% {
+    transform: rotate(16deg);
+  }
+}
+
+.illus-laptop-person {
+  position: absolute;
+  left: calc(50% - 150px);
+  bottom: 0;
+  width: 56px;
+}
+
+/* Laptop (wide, not short): the info card goes on the right side of the
+   camera view instead of across the bottom, where it would hide your feet. */
+@media (min-width: 900px) and (orientation: landscape) {
+  .camera-panel {
+    top: 80px;
+    right: 20px;
+    bottom: auto;
+    left: auto;
+    width: 340px;
+    margin: 0;
+  }
+}

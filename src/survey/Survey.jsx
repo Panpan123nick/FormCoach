@@ -8,7 +8,8 @@ import { QUESTIONS } from './questions.js';
 import QuestionScreen from './QuestionScreen.jsx';
 import SafetyNotice from './SafetyNotice.jsx';
 import SurveySummary from './SurveySummary.jsx';
-import { firstUnansweredIndex, isAnswered, needsDoctorCheck } from './surveyLogic.js';
+import { useMediaQuery } from '../setup/useMediaQuery.js';
+import { firstUnansweredIndex, isAnswered, needsDoctorCheck, toggleMulti } from './surveyLogic.js';
 
 // After tapping a pick-one answer, wait this long before moving on,
 // so the user sees their choice "pop".
@@ -123,6 +124,57 @@ export default function Survey({ survey, setAnswer, updateSurvey }) {
     }
   }
 
+  // A mouse or trackpad (not a touch screen) means a laptop or desktop: show keyboard hints.
+  const hasKeyboard = useMediaQuery('(hover: hover) and (pointer: fine)');
+
+  // Keyboard controls for laptops: number keys pick answers (Y/N for the safety
+  // check), Enter goes on, Backspace or the left arrow goes back.
+  useEffect(() => {
+    function onKey(event) {
+      if (event.ctrlKey || event.metaKey || event.altKey) return;
+
+      if (event.key === 'Backspace' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        goBack();
+        return;
+      }
+
+      if (event.key === 'Enter' || event.key === 'ArrowRight') {
+        // Enter on a focused non-answer button (like Back) should just press that button.
+        if (event.key === 'Enter' && document.activeElement?.matches('button:not(.option), a')) return;
+        event.preventDefault();
+        if (view.type === 'question') {
+          if (isAnswered(question, answers[question.id])) goNext(view.index);
+        } else if (view.type === 'safetyNotice') {
+          continueAfterNotice();
+        } else {
+          finish();
+        }
+        return;
+      }
+
+      if (view.type !== 'question') return;
+
+      if (question.type === 'yesno') {
+        // Y or N answers the first safety question that isn't answered yet.
+        const value = { y: 'yes', n: 'no' }[event.key.toLowerCase()];
+        const item = question.items.find((i) => !answers[question.id]?.[i]);
+        if (value && item) handleAnswer((latest) => ({ ...latest, [item]: value }));
+        return;
+      }
+
+      const option = question.options[Number(event.key) - 1];
+      if (!option) return;
+      handleAnswer(
+        question.type === 'multi'
+          ? (latest) => toggleMulti(latest, option, question.exclusive)
+          : option,
+      );
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
   // How full the progress bar is: the safety notice counts as the safety question.
   let progress = QUESTIONS.length;
   if (view.type === 'question') progress = view.index + 1;
@@ -152,6 +204,7 @@ export default function Survey({ survey, setAnswer, updateSurvey }) {
               question={question}
               answer={answers[question.id]}
               onAnswer={handleAnswer}
+              showKeys={hasKeyboard}
             />
           )}
           {view.type === 'safetyNotice' && <SafetyNotice />}

@@ -6,10 +6,9 @@ import {
   Cake,
   CalendarDays,
   Dumbbell,
-  Flame,
+  Footprints,
   Heart,
   HeartHandshake,
-  PersonStanding,
   Sprout,
   Stethoscope,
   Target,
@@ -27,7 +26,6 @@ export const QUESTION_ICONS = {
   experience: Sprout,
   activityDays: CalendarDays,
   goals: Target,
-  exercises: PersonStanding,
   equipment: Backpack,
   workoutLength: Timer,
 };
@@ -36,7 +34,7 @@ export const QUESTION_ICONS = {
 export const OPTION_ICONS = {
   goals: {
     stronger: Dumbbell,
-    loseWeight: Flame,
+    moreActive: Footprints,
     endurance: Zap,
     flexibility: Waves,
     healthy: Heart,

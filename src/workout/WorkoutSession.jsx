@@ -41,7 +41,7 @@ export default function WorkoutSession({ plan, options, settings, language, onSt
   const [display, setDisplay] = useState({ reps: 0, missed: 0, seconds: 0, banner: null });
 
   const current = sets[index];
-  const exerciseName = (id) => t(`questions.exercises.options.${id}`);
+  const exerciseName = (id) => t(`exercises.names.${id}`);
 
   // Things the per-frame code reads and writes (refs don't redraw the screen).
   const live = useRef({ stage: 'ready', analyzer: null, banner: null, bannerAt: 0, lastReps: 0 });
@@ -93,7 +93,7 @@ export default function WorkoutSession({ plan, options, settings, language, onSt
     );
 
     const done =
-      current.kind === 'hold' ? next.seconds >= current.target : next.reps >= current.target;
+      current.kind === 'reps' ? next.reps >= current.target : next.seconds >= current.target;
     if (done) {
       state.stage = 'finishing'; // stop counting immediately, before React catches up
       finishSet(result);
@@ -127,7 +127,10 @@ export default function WorkoutSession({ plan, options, settings, language, onSt
         return;
       }
       clearInterval(timer);
-      live.current.analyzer = createExerciseAnalyzer(current.exercise, options);
+      live.current.analyzer = createExerciseAnalyzer(current.exercise, {
+        ...options,
+        targetSeconds: current.target,
+      });
       live.current.lastReps = 0;
       voice.speak(t('workout.say.go'), { interrupt: true });
       setStage('active');
@@ -179,7 +182,18 @@ export default function WorkoutSession({ plan, options, settings, language, onSt
     onStop();
   }
 
-  const isHold = current.kind === 'hold';
+  // Laptop keys: Esc stops the workout at any time; Enter skips the rest countdown.
+  useEffect(() => {
+    function onKey(event) {
+      if (event.key === 'Escape') stop();
+      else if (event.key === 'Enter' && stage === 'rest') nextSet();
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  });
+
+  // Plank and follow-along stretches show a clock instead of a rep count.
+  const isTimed = current.kind !== 'reps';
   const loading = camera.status === 'starting' || camera.status === 'loading';
   const upNext = sets[index + 1];
 
@@ -200,17 +214,21 @@ export default function WorkoutSession({ plan, options, settings, language, onSt
       <header className="hud-top">
         <div className="hud-title">
           <span className="kicker">
-            {t('workout.setLabel', { set: current.setNumber, sets: current.sets })}
+            {current.role === 'main'
+              ? t('workout.setLabel', { set: current.setNumber, sets: current.sets })
+              : t(`workout.${current.role}`)}
           </span>
           <span className="hud-exercise">{exerciseName(current.exercise)}</span>
         </div>
         {stage === 'active' && (
           <div className="hud-counter" aria-live="polite">
-            {isHold ? (
+            {isTimed ? (
               <>
                 <span className="hud-number">{clock(display.seconds)}</span>
                 <span className="hud-target">/ {clock(current.target)}</span>
-                <span className="kicker">{t('workout.goodForm')}</span>
+                <span className="kicker">
+                  {current.kind === 'guided' ? t('workout.followAlong') : t('workout.goodForm')}
+                </span>
               </>
             ) : (
               <>
@@ -268,9 +286,10 @@ export default function WorkoutSession({ plan, options, settings, language, onSt
       )}
 
       {/* Always on screen, whatever else is happening. */}
-      <button type="button" className="stop-button" onClick={stop}>
+      <button type="button" className="stop-button" onClick={stop} aria-keyshortcuts="Escape">
         <Hand aria-hidden="true" />
         {t('workout.stop')}
+        <kbd className="stop-key">Esc</kbd>
       </button>
     </div>
   );

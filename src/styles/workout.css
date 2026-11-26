@@ -204,3 +204,64 @@
   flex-shrink: 0;
   margin-top: 3px;
 }
+
+/* "Good for: Get stronger, Stay healthy" under each planned exercise. */
+.plan-why {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.plan-row .summary-value .tag {
+  margin-left: 8px;
+  vertical-align: 2px;
+}
+
+/* "Esc" label on the STOP button, only where there's a keyboard. */
+.stop-key {
+  display: none;
+  padding: 2px 8px;
+  border: 2px solid currentColor;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stop-key {
+    display: inline-block;
+  }
+}
+
+/* Laptop/desktop: you're 2–3 meters from the screen, so everything gets bigger. */
+@media (min-width: 900px) {
+  .hud-number {
+    font-size: 9rem;
+  }
+
+  .hud-target {
+    font-size: 2rem;
+  }
+
+  .hud-exercise {
+    font-size: 2.6rem;
+  }
+
+  .cue-banner {
+    font-size: 4rem;
+  }
+
+  .big-countdown {
+    font-size: 8rem;
+  }
+
+  .workout-card {
+    width: 460px;
+  }
+
+  .workout-tip {
+    font-size: 1.25rem;
+  }
+}
